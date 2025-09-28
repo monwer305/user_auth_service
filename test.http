@@ -1,0 +1,47 @@
+@SUPERADMIN_EMAIL = superadmin@example.com
+@SUPERADMIN_PASSWORD = Super!
+### 1️⃣ Login as superadmin
+POST http://127.0.0.1:8000/auth/login
+Authorization: Basic {{SUPERADMIN_EMAIL}}:{{SUPERADMIN_PASSWORD}}
+
+###
+
+
+### 3️⃣ List users (admin/superadmin only)
+GET http://127.0.0.1:8000/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzdXBlcmFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6InN1cGVyYWRtaW4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzU5MDQzODczLCJleHAiOjE3NTkwNDQ3NzN9.JTigk2PAikAm2iLUSNfVJerAL5hZ1onUtJsnQPvEgnI
+
+### 4️⃣ Create a new user
+POST http://127.0.0.1:8000/users/create/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzdXBlcmFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6InN1cGVyYWRtaW4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzU5MDQyMDcxLCJleHAiOjE3NTkwNDI5NzF9.Il9hc5djAHl6PIecXuQtoNSUoOtXTSWgYcXM20it8pc
+
+{
+  "email": "nazrez@ex.com",
+  "password": "NewUserPass123!",
+  "role": "user"
+}
+
+###
+
+### 5️⃣ Update a user (admin only)
+PUT http://127.0.0.1:8000/users/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzdXBlcmFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6InN1cGVyYWRtaW4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzU5MDQzODczLCJleHAiOjE3NTkwNDQ3NzN9.JTigk2PAikAm2iLUSNfVJerAL5hZ1onUtJsnQPvEgnI
+
+{
+  "email": "updateduser@example.com",
+  "role": "user",
+  "disabled": false
+}
+
+###
+
+### 6️⃣ Enable/Disable a user (admin only)
+PATCH http://127.0.0.1:8000/users/2/disable
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzdXBlcmFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6InN1cGVyYWRtaW4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzU5MDQzODczLCJleHAiOjE3NTkwNDQ3NzN9.JTigk2PAikAm2iLUSNfVJerAL5hZ1onUtJsnQPvEgnI
+
+{
+  "disabled": true
+}

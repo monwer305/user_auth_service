@@ -1,2 +1,9 @@
-# user_auth_service
-FastAPI-based Authentication &amp; User Management Service with Role-Based Access Control and JWT.
+# FastAPI Auth Service (Users + Auth)
+
+## Quick start (dev)
+
+1. Copy `.env.example` → `.env` and set values.
+
+2. Install deps:
+   ```bash
+   python -m pip install -r requirements.txt
