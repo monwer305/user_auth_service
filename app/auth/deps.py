@@ -1,9 +1,9 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from sqlalchemy.orm import Session
 
-from app.db import SessionLocal
-from app.models import RefreshToken, User
+from app.config_utils import ConfigMapper
+from app.db import get_db
+from app.models import User
 from app.utils.jwt import decode_token
 
 bearer_scheme = HTTPBearer()
@@ -29,18 +29,10 @@ def require_role(required: str):
     return wrapper
 
 
-def get_db():
-    db: Session = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme),
-    db: Session = Depends(get_db),
 ):
+    settings = ConfigMapper.get()
     token = credentials.credentials
     try:
         payload = decode_token(token)
@@ -56,9 +48,10 @@ def get_current_user(
         )
 
     user_id = int(payload.get("sub"))
-    user = db.query(User).filter(User.id == user_id, User.is_active == True).first()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
-        )
+    with get_db(settings.database_uri) as db:
+        user = db.query(User).filter(User.id == user_id, User.is_active == True).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+            )
     return user

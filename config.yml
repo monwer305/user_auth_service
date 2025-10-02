@@ -1,0 +1,21 @@
+MYSQL_USER: "auth_user1"
+MYSQL_PASSWORD: "Auth123"
+MYSQL_HOST: "127.0.0.1"
+MYSQL_PORT: 3306
+MYSQL_DB: "auth_service_db"
+
+JWT_SECRET: "your_super_secret_key"
+ACCESS_TOKEN_EXPIRES_MIN: 15
+REFRESH_TOKEN_EXPIRES_DAYS: 7
+
+APP_HOST: "0.0.0.0"
+APP_PORT: 8000
+
+SMTP_HOST: "smtp.gmail.com"
+SMTP_PORT: 587
+SMTP_USER: "your_email@gmail.com"
+SMTP_PASSWORD: "your_email_app_password"
+SMTP_FROM: "your_email@gmail.com"
+
+SUPER_ADMIN_EMAIL: "superadmin@example.com"
+SUPER_ADMIN_PASSWORD: "Super!"

@@ -1,13 +1,24 @@
 import smtplib
 import ssl
-from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from app.config import settings
+from email.mime.text import MIMEText
 
-def send_email(to_email: str, subject: str, body: str):
+from app.config_utils import ConfigMapper
+
+
+def send_email(to_email: str, subject: str, body: str) -> None:
     """
-    Send an email using SMTP with TLS.
+    Sends an email using SMTP with TLS encryption.
+
+    Args:
+        to_email (str): Recipient's email address.
+        subject (str): Subject of the email.
+        body (str): HTML content of the email body.
+
+    Raises:
+        Exception: If sending the email fails.
     """
+    settings = ConfigMapper.get()
     msg = MIMEMultipart()
     msg["From"] = settings.SMTP_USER
     msg["To"] = to_email
